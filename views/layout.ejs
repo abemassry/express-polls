@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express Polls - <%= title %></title>
+    <link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scaleable=no">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Express Polls</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/top">Top</a>
+            </li>
+            <li>
+              <a href="/all">All</a>
+            </li>
+            <li>
+              <a href="/create">Create</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/about">About</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container-fluid">
+    
+      <%- body %>
+    
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/flot/jquery.flot.min.js"></script>
+    <script src="/javascripts/flot/jquery.flot.crosshair.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/javascripts/flot/jquery.flot.pie.js"></script>
+    
+    <script>
+    function labelFormatter(label, series) {
+      return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    }
+    var data = <%- JSON.stringify(voteData) %>;
+    $.plot('#placeholder', data, {
+      series: {
+        pie: {
+          show: true,
+          radius: 11/16,
+          innerRadius: 0.3
+        }
+      },
+      legend: {
+        show: false
+      }
+    });
+
+
+
+
+    //$.plot('#placeholder', data, {
+    //  series: {
+    //    pie: {
+    //      show: true,
+    //      radius: 1,
+    //      innerRadius: 0.4,
+    //      label: {
+    //        show: true,
+    //        radius: 6/8,
+    //        formatter: labelFormatter,
+    //        background: {
+    //          opacity: 0.5
+    //        }
+    //      }
+    //    }
+    //  },
+    //  legend: {
+    //    show: false
+    //  }
+    //});
+
+    </script>
+
+  </body>
+</html>
