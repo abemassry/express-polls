@@ -1,18 +1,23 @@
+//Module dependencies
 
-/**
- * Module dependencies.
- */
-
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
+var express = require('express');
+var http = require('http');
+var path = require('path');
 var expressLayouts = require('express-ejs-layouts');
 
-var index = require('./routes/index');
-var create = require('./routes/create');
-
-
+// 
+// All routes go in routes directory
+// route file ex. users.js
+// routes take the form of ex. routes.users.main
+// can have subroutes in each file
+//
+var routes = new Array();
+require("fs").readdirSync("./routes").forEach(function(file) {
+  if (file.match(/.+\.js$/g) !== null) {
+    var name = file.replace('.js', '');
+    routes[name] = require('./routes/' + file);
+  }
+});
 
 var app = express();
 
@@ -39,9 +44,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', index.index);
-app.get('/create', create.create);
-//app.get('create', create);
+// routes list
+
+app.get('/', routes.index.main);
+app.get('/create', routes.create.main);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

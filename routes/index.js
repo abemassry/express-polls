@@ -1,9 +1,6 @@
 var pact = require('../pact.js');
-/*
- * GET home page.
- */
 
-exports.index = function(req, res){
+exports.main = function(req, res){
   //res.render('index', { title: 'Express' });
   pact.db.put('name', 'LevelUp', function(err) {
     if (err) return console.log('Oops!', err);
@@ -17,15 +14,10 @@ exports.index = function(req, res){
         { label: "Learning",  data: 50},
         { label: "Fun",  data: 30}
       ];
-      var voteData2 = [
-        { label: "Polls",  data: 22},
-        { label: "Learning",  data: 45},
-        { label: "Fun",  data: 33}
-      ];
 
       res.render('index', { title: 'Home', 
                             voteData: voteData, 
-                            voteData2: voteData2
+                            render: true
                           }
       );
 

@@ -53,19 +53,21 @@
     function labelFormatter(label, series) {
       return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
     }
+    if (<%- render %> == true) {
     var data = <%- JSON.stringify(voteData) %>;
-    $.plot('#placeholder', data, {
-      series: {
-        pie: {
-          show: true,
-          radius: 11/16,
-          innerRadius: 0.3
+      $.plot('#placeholder', data, {
+        series: {
+          pie: {
+            show: true,
+            radius: 11/16,
+            innerRadius: 0.3
+          }
+        },
+        legend: {
+          show: false
         }
-      },
-      legend: {
-        show: false
-      }
-    });
+      });
+    }
 
 
 
