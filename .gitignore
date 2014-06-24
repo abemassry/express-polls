@@ -26,6 +26,8 @@ build/Release
 
 # vim
 .*.swp
+.*.swn
+.*.swo
 
 # thumbnails
 .DS_Store
