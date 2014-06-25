@@ -4,3 +4,9 @@
   margin-left: auto;
   max-width: 940px; /* or 950px */
 }
+
+.hidden-input {
+  display: none;
+}
+
+

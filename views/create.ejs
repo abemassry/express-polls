@@ -1,16 +1,16 @@
 <h1>Create a poll</h1>
+<br />
 <div class="col-md-8 col-md-offset-2">
   <form class="row" action="/createnew" method="post" role="form">
     <div class="form-group">
-      <label for="question"></label>
+      <label for="question">Question</label>
       <textarea id="question" 
                 class="form-control" 
                 autocomplete="off" 
                 placeholder="How many pecks of pickled peppers did Peter Piper pick?" 
                 maxlength="150" 
                 rows="3" 
-                name="question">
-      </textarea>
+                name="question"></textarea>
     </div>
     <div class="form-group">
       <label for="options">Options</label>
@@ -23,4 +23,54 @@
              name="options"
              data-signals-once="true"
              data-signals-name="create-unhide-next-input" />
+      <input id="options" 
+             class="form-control hidden-input" 
+             type="text" 
+             placeholder="One" 
+             autocomplete="off"
+             maxlength="100"
+             name="options"
+             data-signals-once="true"
+             data-signals-name="create-unhide-next-input" />
+      <input id="options" 
+             class="form-control hidden-input" 
+             type="text" 
+             placeholder="One" 
+             autocomplete="off"
+             maxlength="100"
+             name="options"
+             data-signals-once="true"
+             data-signals-name="create-unhide-next-input" />
+      <input id="options" 
+             class="form-control hidden-input" 
+             type="text" 
+             placeholder="One" 
+             autocomplete="off"
+             maxlength="100"
+             name="options"
+             data-signals-once="true"
+             data-signals-name="create-unhide-next-input" />
+      <input id="options" 
+             class="form-control hidden-input" 
+             type="text" 
+             placeholder="One" 
+             autocomplete="off"
+             maxlength="100"
+             name="options"
+             data-signals-once="true"
+             data-signals-name="create-unhide-next-input" />
+      <input id="options" 
+             class="form-control hidden-input" 
+             type="text" 
+             placeholder="One" 
+             autocomplete="off"
+             maxlength="100"
+             name="options"
+             data-signals-once="true"
+             data-signals-name="create-unhide-next-input" />
     </div>
+
+    <button class="btn btn-default btn-lg pull-right btn-success" type="submit">
+      <span class="glyphicon glyphicon-saved"></span>
+      Create and Vote
+    </button>
