@@ -7,6 +7,10 @@
 
 .hidden-input {
   display: none;
+  margin-bottom: 20px;
+}
+.first-input{
+  margin-bottom: 20px;
 }
 
 

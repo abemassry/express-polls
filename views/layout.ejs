@@ -70,5 +70,25 @@
     }
     </script>
 
+    <script>
+      $(document).ready(function() {
+        $('#options1').focus(function() {
+          $('#options2').slideDown("fast");
+        });
+        $('#options2').focus(function() {
+          $('#options3').slideDown("fast");
+        });
+        $('#options3').focus(function() {
+          $('#options4').slideDown("fast");
+        });
+        $('#options4').focus(function() {
+          $('#options5').slideDown("fast");
+        });
+        $('#options5').focus(function() {
+          $('#options6').slideDown("fast");
+        });
+      });
+
+    </script>
   </body>
 </html>
