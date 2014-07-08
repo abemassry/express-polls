@@ -15,7 +15,7 @@ exports.main = function(req, res){
         { label: "Fun",  data: 30}
       ];
 
-      res.render('index', { title: 'Home', 
+      res.render('index', { title: 'Express Polls - Home', 
                             voteData: voteData, 
                             render: true
                           }
