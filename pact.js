@@ -4,7 +4,7 @@ var db = Sublevel(levelup('./db'));
 var poll = db.sublevel('polls');
 var crypto = require('crypto');
 
-var getPollId = function() {
+var getId = function() {
   var randInt = getRandomInt(1, 999999999999999);
   var diffRandInt = getRandomInt(1, 999999999999999);
   var randStringLength = getRandomInt(1, 40);
@@ -30,4 +30,4 @@ exports.levelup = levelup;
 exports.Sublevel = Sublevel;
 exports.db = db;
 exports.poll = poll;
-exports.getPollId = getPollId;
+exports.getId = getId;

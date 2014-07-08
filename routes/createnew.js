@@ -29,12 +29,9 @@ exports.main = function(req, res){
   if (optionLength > 1) {
 
     var value = { "Question": question, "Answers": answers};
-    var key = pact.getPollId();
+    var key = pact.getId();
     pact.db.put(key, value, function () {
-      res.render('all', { title: 'Express Polls - All',
-                          render: false
-                        }
-      );
+      res.redirect('/poll/'+key);
                            
     });
   }
