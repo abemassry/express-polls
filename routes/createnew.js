@@ -18,23 +18,29 @@ exports.main = function(req, res){
   var option4 = req.param('option4');
   var option5 = req.param('option5');
   var options = [option0, option1, option2, option3, option4, option5];
-  var answers;
+  var answers = [];
   var i;
-  for (i = 0; i === options.length; i++) {
-    if (options[i]) {
+  for (i = 0; i <= options.length; i++) {
+    if (options[i] != '' && typeof options[i] !== "undefined") {
       answers[optionLength] = options[i];
       optionLength++;
     }
   }
+  console.log('optionLength');
+  console.log(optionLength);
+  console.log('answers');
+  console.log(answers);
+
   if (optionLength > 1) {
 
     var value = { "Question": question, "Answers": answers};
     var key = pact.getId();
-    pact.db.put(key, value, function () {
+    pact.db.put(key, value, function() {
       res.redirect('/poll/'+key);
                            
     });
+  } else {
+    res.redirect('/create');
   }
-
 
 };
