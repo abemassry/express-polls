@@ -4,6 +4,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var expressLayouts = require('express-ejs-layouts');
+var flash = require('connect-flash');
 
 // 
 // All routes go in routes directory
@@ -30,6 +31,9 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+  app.use(express.cookieParser('keyboard cat'));
+  app.use(express.session({ cookie: { maxAge: 60000 }}));
+  app.use(flash());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));

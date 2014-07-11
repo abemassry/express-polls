@@ -6,6 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "crypto": "0.0.3",
     "ejs": "*",
     "express": "3.1.0",

@@ -1,6 +1,9 @@
 <h1>Create a poll</h1>
 <br />
 <div class="col-md-8 col-md-offset-2">
+  <% if(messages != '') { %>
+    <div class="alert alert-warning" role="alert"><%= messages %></div> 
+  <% } %>
   <form class="row" action="/createnew" method="post" role="form">
     <div class="form-group">
       <label for="question">Question</label>

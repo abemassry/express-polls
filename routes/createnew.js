@@ -40,6 +40,7 @@ exports.main = function(req, res){
                            
     });
   } else {
+    req.flash('warn', 'Need more than one option for a poll');
     res.redirect('/create');
   }
 
