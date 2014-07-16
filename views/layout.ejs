@@ -39,36 +39,16 @@
       </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid">
-    
-      <%- body %>
-    
-    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="/javascripts/flot/jquery.flot.min.js"></script>
     <script src="/javascripts/flot/jquery.flot.crosshair.min.js"></script>
     <script language="javascript" type="text/javascript" src="/javascripts/flot/jquery.flot.pie.js"></script>
     
-    <script>
-    function labelFormatter(label, series) {
-      return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-    }
-    if (<%- render %> == true) {
-    var data = <%- JSON.stringify(voteData) %>;
-      $.plot('#placeholder', data, {
-        series: {
-          pie: {
-            show: true,
-            radius: 11/16,
-            innerRadius: 0.3
-          }
-        },
-        legend: {
-          show: false
-        }
-      });
-    }
-    </script>
+      <%- body %>
+    
+    </div>
+    
 
     <script>
       $(document).ready(function() {
