@@ -4,7 +4,7 @@
   <% if(messages != '') { %>
     <div class="alert alert-warning" role="alert"><%= messages %></div> 
   <% } %>
-  <form class="row" action="/createnew" method="post" role="form">
+  <form class="row" action="/create" method="post" role="form">
     <div class="form-group">
       <label for="question">Question</label>
       <textarea id="question" 
@@ -13,14 +13,15 @@
                 placeholder="How many pecks of pickled peppers did Peter Piper pick?" 
                 maxlength="150" 
                 rows="3" 
-                name="question"></textarea>
+                name="question"><%= refill.question %></textarea>
     </div>
     <div class="form-group">
       <label for="options">Options</label>
       <input id="options0" 
              class="form-control first-input"
              type="text" 
-             placeholder="One" 
+             placeholder="One"
+             value="<%= refill.option0 %>"
              autocomplete="off"
              maxlength="100"
              name="option0"
@@ -30,6 +31,7 @@
              class="form-control first-input" 
              type="text" 
              placeholder="Two" 
+             value="<%= refill.option1 %>"
              autocomplete="off"
              maxlength="100"
              name="option1"
@@ -39,6 +41,7 @@
              class="form-control hidden-input" 
              type="text" 
              placeholder="Way too many to count" 
+             value="<%= refill.option2 %>"
              autocomplete="off"
              maxlength="100"
              name="option2"
@@ -48,6 +51,7 @@
              class="form-control hidden-input" 
              type="text" 
              placeholder="All of them"
+             value="<%= refill.option3 %>"
              autocomplete="off"
              maxlength="100"
              name="option3"
@@ -57,6 +61,7 @@
              class="form-control hidden-input" 
              type="text" 
              placeholder="The rest" 
+             value="<%= refill.option4 %>"
              autocomplete="off"
              maxlength="100"
              name="option4"
@@ -66,6 +71,7 @@
              class="form-control hidden-input" 
              type="text" 
              placeholder="OMG" 
+             value="<%= refill.option5 %>"
              autocomplete="off"
              maxlength="100"
              name="option5"
@@ -75,6 +81,7 @@
              class="form-control hidden-input" 
              type="text" 
              placeholder="Infinity" 
+             value="<%= refill.option6 %>"
              autocomplete="off"
              maxlength="100"
              name="option6"
@@ -86,4 +93,6 @@
       <span class="glyphicon glyphicon-saved"></span>
       Create and Vote
     </button>
+    <input name="poll-question-submitted" type="hidden" value="1" />
+
   </form>
