@@ -5,12 +5,13 @@
     // if they did hide questions and display plot
     // update plot with websockets
   </script>
-
+  <div id="button_answers">
   <% for (var i=0; i<data.answers.length; i++) { %>
     <div class="form-group">
       <button type="button" class="btn btn-default btn-lg" value="<%= data.answers[i] %>" id="id_<%= data.answers[i] %>"><%= data.answers[i] %></button>
     </div>
   <% } %>
+  </div>
 
 
 <div id="placeholder" style="width: 100%; height: 363px;"></div>
@@ -22,12 +23,41 @@
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 <br />
 <script>
+  $(function(){
   <% for (var i=0; i<data.answers.length; i++) { %>
-    $("#id_<%= data.answers[i] %>").click(function() {
-      // submit question with ajax
-      // hide questions
-      // render plot
+    var answer = "<%= data.answers[i] %>";
+    var id = "#id_"+answer;
+    var poll_id = "<%= poll_id %>";
+    $(id).click(function() {
+      // submit answer to question with ajax
+      $.ajax({
+        type: "POST",
+        data: "poll_id="+poll_id+"&answer="+answer,
+        url: "/vote",
+        success: function(msg) {
+          
+          // hide questions
+          $("#button_answers").fadeOut("fast");
+          
+          // render plot
+          $.plot('#placeholder', msg, {
+            series: {
+              pie: {
+                show: true,
+                radius: 11/16,
+                innerRadius: 0.3
+              }
+            },
+            legend: {
+              show: false
+            }
+          }).fadeIn();
+
+        }
       // update plot with websockets
+      // update votes with websockets
+      });
     });
   <% } %>
-</scrip>
+  });
+</script>
