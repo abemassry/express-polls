@@ -1,6 +1,5 @@
 var levelup = require('levelup');
-var Sublevel = require('level-sublevel');
-var db = Sublevel(levelup('./db'));
+var db = levelup('./db');
 var poll = db.sublevel('polls');
 var crypto = require('crypto');
 

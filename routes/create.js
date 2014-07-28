@@ -43,7 +43,7 @@ exports.main = function(req, res){
 
       var value = { question: question, answers: answers};
       var key = pact.getId();
-      pact.db.put(key, JSON.stringify(value), function() {
+      pact.db.put('poll!'+key, JSON.stringify(value), function() {
         res.redirect('/poll/'+key);
                              
       });
