@@ -1,6 +1,5 @@
 var levelup = require('levelup');
 var db = levelup('./db');
-var poll = db.sublevel('polls');
 var crypto = require('crypto');
 
 var getId = function() {
@@ -26,7 +25,5 @@ function getRandomInt (min, max) {
 }
 
 exports.levelup = levelup;
-exports.Sublevel = Sublevel;
 exports.db = db;
-exports.poll = poll;
 exports.getId = getId;

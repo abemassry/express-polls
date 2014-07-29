@@ -1,7 +1,7 @@
 var pact = require('../pact.js')
 
 exports.main = function(req, res){
-  if (req.param('poll_id') {
+  if (req.param('poll_id')) {
     var pollId = req.param('poll_id');
     pact.db.get(pollId, function (err, value) {
       if (err) return console.log(req.params.id+' does not exist in poll.js');
@@ -12,8 +12,7 @@ exports.main = function(req, res){
         function(err) {
           if (err) return console.log('db error', err);
           // get current poll stats
-          pact.db.createReadStream({start: pollId + '!~', 
-                                    end: pollId + '!'})
+          pact.db.createReadStream({start: pollId + '!~', end: pollId + '!'})
             .on('data', function(data){
               var vote = JSON.parse(data).vote;
               stats.push(vote);
