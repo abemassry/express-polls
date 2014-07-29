@@ -1,12 +1,7 @@
 var pact = require('../pact.js');
 
 exports.main = function(req, res){
-  var username;
-  if (req.user) {
-    username = req.user.username;
-  } else {
-    // create new user
-  }
+  var uid = req.param('uid');
   var refill = {};
   refill.question = '';
   refill.option0 = '';
@@ -41,7 +36,7 @@ exports.main = function(req, res){
 
     if (optionLength > 1) {
 
-      var value = { question: question, answers: answers};
+      var value = { question: question, answers: answers, user: uid};
       var key = pact.getId();
       pact.db.put('poll!'+key, JSON.stringify(value), function() {
         res.redirect('/poll/'+key);

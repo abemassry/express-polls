@@ -1,7 +1,44 @@
 
 <h2><%= title %></h2>
   <script>
-    // check to see if user voted
+    function supports_html5_storage() {
+      try {
+        localStorage["works"] = "yes";
+        return 'localStorage' in window && window['localStorage'] !== null;
+      } catch (e) {
+        return false;
+      }
+    }
+    $(document).ready(function() {
+      // check to see if user is logged in
+      if (supports_html5_storage() !== false) {
+        localStorage["storage_enabled"] = "yes";
+        if(localStorage["logged_in"] !== "yes") {
+          loginUser();
+        } else {
+          $("input[name='uid']").val(localStorage["uid"]);
+        }
+      }
+      function loginUser() {
+        $.ajax({
+          type: "POST",
+          data: "getUid=1",
+          url: "/newuid",
+          success: function(msg) {
+            if(msg) {
+              localStorage["uid"] = msg;
+              localStorage["logged_in"] = "yes";
+              $("input[name='uid']").val(localStorage["uid"]);
+            }
+          }
+        });
+      }
+
+      // check to see if user voted
+
+
+    });
+
     // if they did hide questions and display plot
     // update plot with websockets
   </script>

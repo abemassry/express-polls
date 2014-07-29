@@ -5,7 +5,7 @@ exports.main = function(req, res){
     var pollId = req.param('poll_id');
     pact.db.get(pollId, function (err, value) {
       if (err) return console.log(req.params.id+' does not exist in poll.js');
-      var voteId = getId();
+      var voteId = pact.getId();
       var value = { user: user_id, vote: answer};
       var stats = new Array();
       pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(value), 
@@ -18,7 +18,7 @@ exports.main = function(req, res){
               stats.push(vote);
             })
             .on('end', function() {
-            // update with websockets
+              // update with websockets
               
 
 

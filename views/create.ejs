@@ -10,6 +10,25 @@ function supports_html5_storage() {
 $(document).ready(function() {
   if (supports_html5_storage() !== false) {
     localStorage["storage_enabled"] = "yes";
+    if(localStorage["logged_in"] !== "yes") {
+      loginUser();
+    } else {
+      $("input[name='uid']").val(localStorage["uid"]);
+    }
+  }
+  function loginUser() {
+    $.ajax({
+      type: "POST",
+      data: "getUid=1",
+      url: "/newuid",
+      success: function(msg) {
+        if(msg) {
+          localStorage["uid"] = msg;
+          localStorage["logged_in"] = "yes";
+          $("input[name='uid']").val(localStorage["uid"]);
+        }
+      }
+    });
   }
 });
 
@@ -110,5 +129,6 @@ $(document).ready(function() {
       Create and Vote
     </button>
     <input name="poll-question-submitted" type="hidden" value="1" />
+    <input name="uid" type="hidden" value="" id="form_uid" />
 
   </form>
