@@ -1,4 +1,3 @@
-
 <h2><%= title %></h2>
   <script>
     function supports_html5_storage() {
@@ -10,6 +9,7 @@
       }
     }
     $(document).ready(function() {
+      
       // check to see if user is logged in
       if (supports_html5_storage() !== false) {
         localStorage["storage_enabled"] = "yes";
@@ -36,10 +36,10 @@
 
       // check to see if user voted
 
+      // if they did hide questions and display plot
 
     });
 
-    // if they did hide questions and display plot
     // update plot with websockets
   </script>
   <div id="button_answers">
