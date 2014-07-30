@@ -16,7 +16,7 @@
         if(localStorage["logged_in"] !== "yes") {
           loginUser();
         } else {
-          $("input[name='uid']").val(localStorage["uid"]);
+          //$("input[name='uid']").val(localStorage["uid"]);
         }
       }
       function loginUser() {
@@ -28,11 +28,24 @@
             if(msg) {
               localStorage["uid"] = msg;
               localStorage["logged_in"] = "yes";
-              $("input[name='uid']").val(localStorage["uid"]);
+              //$("input[name='uid']").val(localStorage["uid"]);
             }
           }
         });
       }
+      function checkVoted() {
+        var uid = localStorage["uid"];
+        var pollId = "<%= pollId %>";
+        $.ajax({
+          type: "POST",
+          data: "poll="+pollId+"&uid="+uid,
+          url: "/checkvoted",
+          success: function(msg) {
+            // if true dont render
+          }
+        });
+      }
+
 
       // check to see if user voted
 
