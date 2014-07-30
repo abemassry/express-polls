@@ -45,6 +45,19 @@
           }
         });
       }
+      function checkSumbitted() {
+        var uid = localStorage["uid"];
+        var pollId = "<%= pollId %>";
+        $.ajax({
+          type: "POST",
+          data: "poll="+pollId+"&uid="+uid,
+          url: "/checksubmitted",
+          success: function(msg) {
+            // if true dont render
+
+          }
+        });
+      }
 
 
       // check to see if user voted

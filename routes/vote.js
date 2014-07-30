@@ -3,12 +3,13 @@ var pact = require('../pact.js')
 exports.main = function(req, res){
   if (req.param('poll_id')) {
     var pollId = req.param('poll_id');
+    var uid = req.param('uid');
     pact.db.get(pollId, function (err, value) {
       if (err) return console.log(req.params.id+' does not exist in poll.js');
       var voteId = pact.getId();
-      var value = { user: user_id, vote: answer};
+      var putValue = { user: uid, vote: answer};
       var stats = new Array();
-      pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(value), 
+      pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(putValue), 
         function(err) {
           if (err) return console.log('db error', err);
           // get current poll stats

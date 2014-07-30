@@ -56,6 +56,9 @@ app.post('/create', routes.create.main);
 app.get('/poll/:id', routes.poll.main);
 app.post('/vote', routes.vote.main);
 app.post('/newuid', routes.newuid.main);
+app.post('/checkvoted', routes.checkVoted.main);
+app.post('/checksubmitted', routes.checkSumbitted.main);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
