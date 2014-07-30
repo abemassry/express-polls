@@ -41,7 +41,11 @@
           data: "poll="+pollId+"&uid="+uid,
           url: "/checkvoted",
           success: function(msg) {
-            // if true dont render
+            // if true render poll
+            // dont show questions
+            if (msg === "true") {
+              displayPlot();
+            }
           }
         });
       }
@@ -53,8 +57,11 @@
           data: "poll="+pollId+"&uid="+uid,
           url: "/checksubmitted",
           success: function(msg) {
-            // if true dont render
-
+            // if true render poll
+            // dont show questions
+            if (msg === "true") {
+              displayPlot();
+            }
           }
         });
       }
@@ -63,6 +70,24 @@
       // check to see if user voted
 
       // if they did hide questions and display plot
+
+      function displayPlot() {
+        $("#button_answers").fadeOut("fast");
+        var data = <%= data %>;
+        $.plot('#placeholder', data, {
+          series: {
+            pie: {
+              show: true,
+              radius: 11/16,
+              innerRadius: 0.3
+            }
+          },
+          legend: {
+            show: false
+          }
+        }).fadeIn();
+        isPlotDisplayed = true;
+      }
 
     });
 
@@ -115,6 +140,7 @@
               show: false
             }
           }).fadeIn();
+          isPlotDisplayed = true;
 
         }
       // update plot with websockets
@@ -122,5 +148,8 @@
       });
     });
   <% } %>
+  if (isPlotDisplayed) {
+    
+  }
   });
 </script>
