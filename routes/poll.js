@@ -9,7 +9,8 @@ exports.main = function(req, res){
     var question = data.question;
     res.render('poll', { title: question,
                          pollId: req.params.id,
-                         data: data, 
+                         data: data,
+                         jsonData: value,
                          render: true
                        }
     );

@@ -8,15 +8,7 @@ exports.main = function(req, res){
       if (err) return console.log(req.params.id+' does not exist in vote.js');
       var voteId = pact.getId();
       var answer = req.param('answer');
-      console.log(' ');
-      console.log('answer');
-      console.log(answer);
-      console.log(' ');
       var putValue = { user: uid, vote: answer};
-      console.log(' ');
-      console.log('putValue');
-      console.log(putValue);
-      console.log(' ');
       var stats = new Array();
       pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(putValue), 
         function(err) {
@@ -25,7 +17,6 @@ exports.main = function(req, res){
           pact.db.createReadStream({start: 'vote!'+pollId + '!', end: 'vote!'+pollId + '!~'})
             .on('data', function(data){
               var vote = JSON.parse(data.value).vote;
-              console.log('vote: '+vote);
               stats.push(vote);
             })
             .on('end', function() {
@@ -33,11 +24,40 @@ exports.main = function(req, res){
               console.log('stats');
               console.log(stats);
               console.log(' ');
-              var voteData = [
-                { label: "Polls",  data: 20},
-                { label: "Learning",  data: 50},
-                { label: "Fun",  data: 30}
-              ];
+              
+              var statsCount = {};
+              var stat;
+              for (var i=0; i<stats.length; i++) {
+                stat = statsCount[stats[i]];
+                if (stat) {
+                  statsCount[stats[i]] = stat + 1;
+                } else {
+                  statsCount[stats[i]] = 1;
+                }
+              }
+              console.log(' ');
+              console.log('statsCount[JSON.parse(value).answers[0]]');
+              console.log(statsCount[JSON.parse(value).answers[0]]);
+              console.log(' ');
+              var pollAnswers = JSON.parse(value).answers;
+              
+              var voteData = [];
+              var total = 0;
+              for (var i=0; i<pollAnswers.length; i++) {
+                voteData[i] = { label: pollAnswers[i], data: statsCount[pollAnswers[i]]};
+                total = total + statsCount[pollAnswers[i]];
+              }
+              console.log(' ');
+              console.log('voteData');
+              console.log(voteData);
+              console.log(' ');
+              var jsonPayload = {total: total, voteData: voteData};
+              res.end(JSON.stringify(jsonPayload));
+              //var voteData = [
+              //  { label: "Polls",  data: 20},
+              //  { label: "Learning",  data: 50},
+              //  { label: "Fun",  data: 30}
+              //];
               //res.end
               // update with websockets
               

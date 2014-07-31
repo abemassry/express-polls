@@ -73,7 +73,7 @@
 
       function displayPlot() {
         $("#button_answers").fadeOut("fast");
-        var data = <%= data %>;
+        var data = <%- jsonData %>;
         $.plot('#placeholder', data, {
           series: {
             pie: {
@@ -110,12 +110,14 @@
               data: "poll_id="+poll_id+"&answer="+answer+"&uid="+uid,
               url: "/vote",
               success: function(msg) {
-                
+                console.log('msg');
+                console.log(msg); 
                 // hide questions
                 $("#button_answers").fadeOut("fast");
                 
                 // render plot
-                $.plot('#placeholder', msg, {
+                var data = JSON.parse(msg.voteData);
+                $.plot('#placeholder', data, {
                   series: {
                     pie: {
                       show: true,
@@ -127,6 +129,8 @@
                     show: false
                   }
                 }).fadeIn();
+                $("#voteCount").html(msg.total+" Votes").fadeIn();
+
                 isPlotDisplayed = true;
 
               }
@@ -143,7 +147,7 @@
 
 <div id="placeholder" style="width: 100%; height: 363px;"></div>
 
-<h3>100 Votes</h3>
+<h3 id="voteCount"></h3>
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 
 
