@@ -97,6 +97,45 @@
   <% for (var i=0; i<data.answers.length; i++) { %>
     <div class="form-group">
       <button type="button" class="btn btn-default btn-lg" value="<%= data.answers[i] %>" id="id_<%= data.answers[i] %>"><%= data.answers[i] %></button>
+      <script>
+        $(function(){
+          var answer = "<%= data.answers[i] %>";
+          var id = "#id_"+answer;
+          var poll_id = "<%= pollId %>";
+          var uid = localStorage["uid"];
+          $(id).click(function() {
+            // submit answer to question with ajax
+            $.ajax({
+              type: "POST",
+              data: "poll_id="+poll_id+"&answer="+answer+"&uid="+uid,
+              url: "/vote",
+              success: function(msg) {
+                
+                // hide questions
+                $("#button_answers").fadeOut("fast");
+                
+                // render plot
+                $.plot('#placeholder', msg, {
+                  series: {
+                    pie: {
+                      show: true,
+                      radius: 11/16,
+                      innerRadius: 0.3
+                    }
+                  },
+                  legend: {
+                    show: false
+                  }
+                }).fadeIn();
+                isPlotDisplayed = true;
+
+              }
+            // update plot with websockets
+            // update votes with websockets
+            });
+          });
+        });
+      </script>
     </div>
   <% } %>
   </div>
@@ -111,45 +150,9 @@
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 <br />
 <script>
-  $(function(){
-  <% for (var i=0; i<data.answers.length; i++) { %>
-    var answer = "<%= data.answers[i] %>";
-    var id = "#id_"+answer;
-    var poll_id = "<%= poll_id %>";
-    $(id).click(function() {
-      // submit answer to question with ajax
-      $.ajax({
-        type: "POST",
-        data: "poll_id="+poll_id+"&answer="+answer,
-        url: "/vote",
-        success: function(msg) {
-          
-          // hide questions
-          $("#button_answers").fadeOut("fast");
-          
-          // render plot
-          $.plot('#placeholder', msg, {
-            series: {
-              pie: {
-                show: true,
-                radius: 11/16,
-                innerRadius: 0.3
-              }
-            },
-            legend: {
-              show: false
-            }
-          }).fadeIn();
-          isPlotDisplayed = true;
-
-        }
-      // update plot with websockets
-      // update votes with websockets
-      });
-    });
-  <% } %>
-  if (isPlotDisplayed) {
-    
-  }
-  });
+/*
+    if (isPlotDisplayed) {
+      
+    }
+*/
 </script>

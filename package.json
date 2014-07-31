@@ -13,6 +13,7 @@
     "level-sublevel": "^5.2.0",
     "leveldown": "^0.10.2",
     "levelup": "^0.18.3",
-    "require-all": "0.0.8"
+    "require-all": "0.0.8",
+    "socket.io": "^1.0.6"
   }
 }

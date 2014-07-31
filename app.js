@@ -6,6 +6,7 @@ var path = require('path');
 var expressLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 
+var app = express();
 // 
 // All routes go in routes directory
 // route file ex. users.js
@@ -20,7 +21,6 @@ require("fs").readdirSync("./routes").forEach(function(file) {
   }
 });
 
-var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -57,9 +57,13 @@ app.get('/poll/:id', routes.poll.main);
 app.post('/vote', routes.vote.main);
 app.post('/newuid', routes.newuid.main);
 app.post('/checkvoted', routes.checkVoted.main);
-app.post('/checksubmitted', routes.checkSumbitted.main);
+app.post('/checksubmitted', routes.checkSubmitted.main);
 
 
-http.createServer(app).listen(app.get('port'), function(){
+server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+var io = require('socket.io').listen(server);
+exports.io = io;
+

@@ -1,6 +1,7 @@
 var levelup = require('levelup');
 var db = levelup('./db');
 var crypto = require('crypto');
+var io = require('./app.js').io;
 
 var getId = function() {
   var randInt = getRandomInt(1, 999999999999999);
@@ -27,3 +28,4 @@ function getRandomInt (min, max) {
 exports.levelup = levelup;
 exports.db = db;
 exports.getId = getId;
+exports.io = io;
