@@ -44,7 +44,9 @@ exports.main = function(req, res){
               var voteData = [];
               var total = 0;
               for (var i=0; i<pollAnswers.length; i++) {
-                voteData[i] = { label: pollAnswers[i], data: statsCount[pollAnswers[i]]};
+                voteData[i] = { label: pollAnswers[i], 
+                                data: statsCount[pollAnswers[i]]
+                              };
                 total = total + statsCount[pollAnswers[i]];
               }
               console.log(' ');
