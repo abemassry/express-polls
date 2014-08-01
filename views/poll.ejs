@@ -116,7 +116,9 @@
                 $("#button_answers").fadeOut("fast");
                 
                 // render plot
-                var data = JSON.parse(msg.voteData);
+                var msgObj = JSON.parse(msg);
+                var data = msgObj.voteData;
+                var total = msgObj.total;
                 $.plot('#placeholder', data, {
                   series: {
                     pie: {
@@ -128,8 +130,11 @@
                   legend: {
                     show: false
                   }
-                }).fadeIn();
-                $("#voteCount").html(msg.total+" Votes").fadeIn();
+                });
+                // taken out temporarily to avoid error
+                // need to find a fade in for plot
+                //.fadeIn();
+                $("#voteCount").html(total+" Votes").fadeIn();
 
                 isPlotDisplayed = true;
 

@@ -35,23 +35,22 @@ exports.main = function(req, res){
                   statsCount[stats[i]] = 1;
                 }
               }
-              console.log(' ');
-              console.log('statsCount[JSON.parse(value).answers[0]]');
-              console.log(statsCount[JSON.parse(value).answers[0]]);
-              console.log(' ');
               var pollAnswers = JSON.parse(value).answers;
               
               var voteData = [];
               var total = 0;
               for (var i=0; i<pollAnswers.length; i++) {
+                if(!statsCount[pollAnswers[i]]) {
+                  statsCount[pollAnswers[i]] = 0;
+                }
                 voteData[i] = { label: pollAnswers[i], 
                                 data: statsCount[pollAnswers[i]]
                               };
                 total = total + statsCount[pollAnswers[i]];
               }
               console.log(' ');
-              console.log('voteData');
-              console.log(voteData);
+              console.log('total');
+              console.log(total);
               console.log(' ');
               var jsonPayload = {total: total, voteData: voteData};
               res.end(JSON.stringify(jsonPayload));
