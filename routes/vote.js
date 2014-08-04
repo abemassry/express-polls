@@ -14,7 +14,9 @@ exports.main = function(req, res){
         function(err) {
           if (err) return console.log('db error', err);
           // get current poll stats
-          pact.db.createReadStream({start: 'vote!'+pollId + '!', end: 'vote!'+pollId + '!~'})
+          pact.db.createReadStream({start: 'vote!'+pollId + '!', 
+                                      end: 'vote!'+pollId + '!~'
+                                  })
             .on('data', function(data){
               var vote = JSON.parse(data.value).vote;
               stats.push(vote);
