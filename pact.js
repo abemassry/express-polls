@@ -1,7 +1,7 @@
 var levelup = require('levelup');
 var db = levelup('./db');
 var crypto = require('crypto');
-var io = require('./app.js').io;
+var appio = require('./app.js').io;
 
 var getId = function() {
   var randInt = getRandomInt(1, 999999999999999);
@@ -24,8 +24,16 @@ var getId = function() {
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+console.log(' ');
+console.log(' ');
+console.log('From pact.js');
+console.log(' ');
+console.log(appio);
+console.log(' ');
+console.log(' ');
+console.log(' ');
 
 exports.levelup = levelup;
 exports.db = db;
 exports.getId = getId;
-exports.io = io;
+exports.io = appio;

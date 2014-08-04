@@ -7,6 +7,9 @@ var expressLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 
 var app = express();
+server = http.createServer(app);
+var io = require('socket.io').listen(server);
+exports.io = io;
 // 
 // All routes go in routes directory
 // route file ex. users.js
@@ -60,10 +63,14 @@ app.post('/checkvoted', routes.checkVoted.main);
 app.post('/checksubmitted', routes.checkSubmitted.main);
 
 
-server = http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-var io = require('socket.io').listen(server);
-exports.io = io;
-
+console.log(' ');
+console.log(' ');
+console.log('From app.js ');
+console.log(io);
+console.log(' ');
+console.log(' ');
+console.log(' ');

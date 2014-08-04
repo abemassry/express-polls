@@ -1,5 +1,13 @@
 var pact = require('../pact.js')
 
+console.log(' ');
+console.log(' ');
+console.log('From vote.js ');
+console.log(pact);
+console.log(' ');
+console.log(' ');
+console.log(' ');
+
 exports.main = function(req, res){
   if (req.param('poll_id')) {
     var pollId = req.param('poll_id');
@@ -22,10 +30,6 @@ exports.main = function(req, res){
               stats.push(vote);
             })
             .on('end', function() {
-              console.log(' ');
-              console.log('stats');
-              console.log(stats);
-              console.log(' ');
               
               var statsCount = {};
               var stat;
@@ -55,7 +59,9 @@ exports.main = function(req, res){
               console.log(total);
               console.log(' ');
               var jsonPayload = {total: total, voteData: voteData};
-              res.end(JSON.stringify(jsonPayload));
+              var jsonPayloadString = JSON.stringify(jsonPayload);
+              pact.io.emit('payload', jsonPayloadString);
+              res.end(jsonPayloadString);
               //var voteData = [
               //  { label: "Polls",  data: 20},
               //  { label: "Learning",  data: 50},

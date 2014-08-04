@@ -1,5 +1,7 @@
 <h2><%= title %></h2>
+  <script src="/socket.io/socket.io.js"></script>
   <script>
+    socket = io.connect('http://popcopy.ignorelist.com:3000');
     function supports_html5_storage() {
       try {
         localStorage["works"] = "yes";
@@ -138,12 +140,36 @@
 
                 isPlotDisplayed = true;
 
+                // update plot with websockets
+                // update votes with websockets
+                socket.on('payload', function(payload) {
+                  console.log(payload);
+                  var plObj = JSON.parse(payload);
+                  var data = plObj.voteData;
+                  var total = plObj.total;
+                  $.plot('#placeholder', data, {
+                    series: {
+                      pie: {
+                        show: true,
+                        radius: 11/16,
+                        innerRadius: 0.3
+                      }
+                    },
+                    legend: {
+                      show: false
+                    }
+                  }); // end of plot
+                  console.log(' ');
+                  console.log('votes ');
+                  console.log(total);
+                  console.log(' ');
+                  $("#voteCount").html(total+" Votes").fadeIn();
+
+                }); // end of socket
               }
-            // update plot with websockets
-            // update votes with websockets
-            });
-          });
-        });
+            }); // end of ajax
+          }); // end of click
+        }); // end of jQuery document.ready equiv
       </script>
     </div>
   <% } %>
