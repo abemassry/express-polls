@@ -1,12 +1,5 @@
 var pact = require('../pact.js')
 
-console.log(' ');
-console.log(' ');
-console.log('From vote.js ');
-console.log(pact);
-console.log(' ');
-console.log(' ');
-console.log(' ');
 
 exports.main = function(req, res){
   if (req.param('poll_id')) {

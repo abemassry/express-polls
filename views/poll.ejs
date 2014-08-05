@@ -19,7 +19,7 @@
           loginUser();
         } else {
           checkVoted();
-          checkSumbitted();
+          //checkSumbitted();
           //$("input[name='uid']").val(localStorage["uid"]);
         }
       }
@@ -77,7 +77,8 @@
 
       function displayPlot() {
         $("#button_answers").fadeOut("fast");
-        var data = "<%- jsonData %>";
+
+        var data = "<%- JSON.parse(jsonData) %>";
         $.plot('#placeholder', data, {
           series: {
             pie: {

@@ -24,14 +24,6 @@ var getId = function() {
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-console.log(' ');
-console.log(' ');
-console.log('From pact.js');
-console.log(' ');
-console.log(appio);
-console.log(' ');
-console.log(' ');
-console.log(' ');
 
 exports.levelup = levelup;
 exports.db = db;
