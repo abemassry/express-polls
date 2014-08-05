@@ -5,8 +5,8 @@ exports.main = function(req, res){
     var pollId = req.param('poll');
     var uid = req.param('uid');
     
-    pact.db.get(pollId, function (err, value) {
-      if (err) return console.log(pollId+' does not exist in checkvoted.js');
+    pact.db.get('poll!'+ pollId, function (err, value) {
+      if (err) return console.log(pollId+' does not exist in checksubmitted.js');
       var user = JSON.parse(value).user;
       if (user === uid) {
         res.end('true');

@@ -1,4 +1,4 @@
-<h2><%= title %></h2>
+<h2><a href="/poll/<%= pollId %>"><%= title %></a></h2>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     socket = io.connect('http://popcopy.ignorelist.com:3000');
@@ -18,6 +18,8 @@
         if(localStorage["logged_in"] !== "yes") {
           loginUser();
         } else {
+          checkVoted();
+          checkSumbitted();
           //$("input[name='uid']").val(localStorage["uid"]);
         }
       }
@@ -75,7 +77,7 @@
 
       function displayPlot() {
         $("#button_answers").fadeOut("fast");
-        var data = <%- jsonData %>;
+        var data = "<%- jsonData %>";
         $.plot('#placeholder', data, {
           series: {
             pie: {
@@ -87,7 +89,8 @@
           legend: {
             show: false
           }
-        }).fadeIn();
+        });
+        //.fadeIn();
         isPlotDisplayed = true;
       }
 
@@ -96,13 +99,16 @@
     // update plot with websockets
   </script>
   <div id="button_answers">
-  <% for (var i=0; i<data.answers.length; i++) { %>
+  <% for (var i=0; i<data.answers.length; i++) {
+    var und_ans = data.answers[i].replace(/ /g,"_");
+  %>
     <div class="form-group">
-      <button type="button" class="btn btn-default btn-lg" value="<%= data.answers[i] %>" id="id_<%= data.answers[i] %>"><%= data.answers[i] %></button>
+      <button type="button" class="btn btn-default btn-lg" value="<%= data.answers[i] %>" id="id_<%= und_ans %>"><%= data.answers[i] %></button>
       <script>
         $(function(){
           var answer = "<%= data.answers[i] %>";
-          var id = "#id_"+answer;
+          var ans_id = answer.replace(/ /g,"_");
+          var id = "#id_"+ans_id;
           var poll_id = "<%= pollId %>";
           var uid = localStorage["uid"];
           $(id).click(function() {

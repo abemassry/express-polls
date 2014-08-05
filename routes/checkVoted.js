@@ -5,10 +5,10 @@ exports.main = function(req, res){
     var pollId = req.param('poll');
     var uid = req.param('uid');
     
-    pact.db.get(pollId, function (err, value) {
+    pact.db.get('poll!'+pollId, function (err, value) {
       if (err) return console.log(pollId+' does not exist in checkvoted.js');
       
-      pact.db.createReadStream({start: pollId + '!~', end: pollId + '!'})
+      pact.db.createReadStream({start: 'poll!'+ pollId + '!~', end: 'poll!'+ pollId + '!'})
         .on('data', function(data) {
           var user = JSON.parse(data).user;
           if (user === uid) {
