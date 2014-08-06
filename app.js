@@ -61,6 +61,7 @@ app.post('/vote', routes.vote.main);
 app.post('/newuid', routes.newuid.main);
 app.post('/checkvoted', routes.checkVoted.main);
 app.post('/checksubmitted', routes.checkSubmitted.main);
+app.get('/all', routes.all.main);
 
 
 server.listen(app.get('port'), function(){
