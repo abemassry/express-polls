@@ -11,7 +11,6 @@
       }
     }
     $(document).ready(function() {
-      
       // check to see if user is logged in
       if (supports_html5_storage() !== false) {
         localStorage["storage_enabled"] = "yes";
@@ -47,8 +46,10 @@
           success: function(msg) {
             // if true render poll
             // dont show questions
-            if (msg === "true") {
+            if (msg == "true") {
               displayPlot();
+            } else {
+              $("#button_answers").show();
             }
           }
         });
@@ -76,9 +77,9 @@
       // if they did hide questions and display plot
 
       function displayPlot() {
-        $("#button_answers").fadeOut("fast");
+        $("#button_answers").hide();
 
-        var data = "<%- JSON.parse(jsonData) %>";
+        var data = <%- JSON.stringify(voteData) %>;
         $.plot('#placeholder', data, {
           series: {
             pie: {
@@ -91,8 +92,36 @@
             show: false
           }
         });
+        var total = <%- JSON.parse(jsonData).total %>;
+        $("#voteCount").html(total+" Votes").fadeIn();
+        updateWithSockets();
         //.fadeIn();
-        isPlotDisplayed = true;
+      }
+      function updateWithSockets() { 
+        socket.on('payload', function(payload) {
+          console.log(payload);
+          var plObj = JSON.parse(payload);
+          var data = plObj.voteData;
+          var total = plObj.total;
+          $.plot('#placeholder', data, {
+            series: {
+              pie: {
+                show: true,
+                radius: 11/16,
+                innerRadius: 0.3
+              }
+            },
+            legend: {
+              show: false
+            }
+          }); // end of plot
+          console.log(' ');
+          console.log('votes ');
+          console.log(total);
+          console.log(' ');
+          $("#voteCount").html(total+" Votes").fadeIn();
+
+        }); // end of socket
       }
 
     });
@@ -145,7 +174,6 @@
                 //.fadeIn();
                 $("#voteCount").html(total+" Votes").fadeIn();
 
-                isPlotDisplayed = true;
 
                 // update plot with websockets
                 // update votes with websockets
@@ -191,10 +219,3 @@
 
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 <br />
-<script>
-/*
-    if (isPlotDisplayed) {
-      
-    }
-*/
-</script>

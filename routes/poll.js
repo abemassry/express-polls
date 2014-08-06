@@ -47,6 +47,7 @@ exports.main = function(req, res){
                              pollId: req.params.id,
                              data: data,
                              jsonData: jsonPayloadString,
+                             voteData: voteData,
                              render: true
                            }
         );
