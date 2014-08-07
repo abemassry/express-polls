@@ -101,7 +101,7 @@
         //.fadeIn();
       }
       function updateWithSockets() { 
-        socket.on('payload', function(payload) {
+        socket.on("<%= pollId %>", function(payload) {
           console.log(payload);
           var plObj = JSON.parse(payload);
           var data = plObj.voteData;
@@ -182,7 +182,7 @@
 
                 // update plot with websockets
                 // update votes with websockets
-                socket.on('payload', function(payload) {
+                socket.on("<%= pollId %>", function(payload) {
                   console.log(payload);
                   var plObj = JSON.parse(payload);
                   var data = plObj.voteData;

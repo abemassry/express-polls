@@ -53,7 +53,7 @@ exports.main = function(req, res){
               console.log(' ');
               var jsonPayload = {total: total, voteData: voteData};
               var jsonPayloadString = JSON.stringify(jsonPayload);
-              pact.io.emit('payload', jsonPayloadString);
+              pact.io.emit(pollId, jsonPayloadString);
               res.end(jsonPayloadString);
               //var voteData = [
               //  { label: "Polls",  data: 20},
