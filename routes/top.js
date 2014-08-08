@@ -7,7 +7,7 @@ exports.main = function(req, res){
                           })
     .on('data', function (data) {
       var title = JSON.parse(data.value).question;
-      var id = data.key.split('!');
+      var pollId = data.key.split('!');
       pact.db.createReadStream({start: 'vote!'+pollId + '!',
                                   end: 'vote!'+pollId + '!~'
                               })
