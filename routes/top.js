@@ -13,11 +13,12 @@ exports.main = function(req, res){
                               })
         .on('data', function (data) {
           var count;
-          for (var i = 0; i<data.value.
+          for (var i = 0; i<data.value; i++) {
+            polls.push({id: id[1], title: title});
+          }
 
 
-
-      polls.push({id: id[1], title: title});
+      })
     })
     .on('end', function() {
       res.render('top', { title: 'Top',
