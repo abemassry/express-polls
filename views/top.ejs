@@ -1,7 +1,7 @@
 <h2>Top</h2>
 
-<% for (var key in polls) { %>
-  <h3><a href="/poll/<%= key %>"><%= polls[key].question %></a><small>&nbsp;&nbsp;&nbsp; Votes: <%= polls[key].count %></small></h3> 
+<% for (var i=0; i<polls.length; i++) { %>
+  <h3><a href="/poll/<%= polls[i].id %>"><%= polls[i].title %></a><small>&nbsp;&nbsp;&nbsp; Votes: <%= polls[i].votes %></small></h3> 
 <% } %>
 
 
