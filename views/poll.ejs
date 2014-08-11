@@ -38,9 +38,6 @@
       }
       function checkVoted() {
         var uid = localStorage["uid"];
-        if(localStorage["has_voted"] !== "yes") {
-          $("#allAnswers").show();
-        } 
         var pollId = "<%= pollId %>";
         $.ajax({
           type: "POST",
@@ -131,7 +128,6 @@
 
     // update plot with websockets
   </script>
-  <div id="allAnswers" style="display: none;">
   <div id="button_answers">
   <% for (var i=0; i<data.answers.length; i++) {
     var und_ans = data.answers[i].replace(/ /g,"_");
@@ -213,7 +209,6 @@
       </script>
     </div>
   <% } %>
-  </div>
   </div>
 
 

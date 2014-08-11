@@ -1,34 +1,31 @@
 var pact = require('../pact.js')
 
 exports.main = function(req, res){
-  var polls = new Array();
-  var count = 0;
-  pact.db.createReadStream({start: 'poll!', 
-                              end: 'poll!~'
+  var polls = {};
+  var list = [];
+  pact.db.createReadStream({start: '!', 
+                              end: '~'
                           })
     .on('data', function (data) {
-      var title = JSON.parse(data.value).question;
-      var pollIdStr = data.key.split('!');
-      var pollId = pollIdStr[1];
-      pact.db.createReadStream({start: 'vote!'+pollId + '!',
-                                  end: 'vote!'+pollId + '!~'
-                              })
-        .on('data', function (data) {
-          count++;
-        })
-        .on('end', function () {
-          polls.push({title: title, id: pollId, votes: count});
-          console.log(' ');
-          console.log('count: ');
-          console.log(count);
-          console.log(title);
-          console.log(pollId);
-          console.log(' ');
-          count = 0;
-        })
+      var keySplit = data.key.split('!');
+      var type = keySplit[0];
+      var id = keySplit[1];
+      
+      if (type === 'poll') {
+        polls[id] = { question: JSON.parse(data.value).question,
+                         count: 0
+                        };
+      } else if (type === 'vote') {
+        polls[id].count = polls[id].count + 1;
+      }
     })
     .on('end', function() {
-      console.log(polls);
+      var i = 0;
+      //for (var key in polls) {
+      //  list.push({
+        console.log(' ');
+        console.log('polls');
+        console.log(polls);
       res.render('top', { title: 'Top',
                           polls: polls,
                           render: false
