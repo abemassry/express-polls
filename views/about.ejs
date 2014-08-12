@@ -1,0 +1,60 @@
+<h1>Express Polls <small>Quick Realtime Polls</small></h1>
+
+
+<div id="spacer" style="width: 100%; height: 50px;"></div>
+<br />
+
+<h2>This site was made with:</h2>
+<div id="minor" style="width: 100%; height: 363px;"></div>
+<h3>100 Votes</h3>
+
+<div id="spacer" style="width: 100%; height: 50px;"></div>
+<br />
+
+<h2> </h2>
+<div id="theName" style="width: 100%; height: 363px;"></div>
+<h3>100 Votes</h3>
+
+<h3><a href="https://www.youtube.com/watch?v=VDvr08sCPOc">Fort Minor - Remember The Name</a></h3>
+
+<script>
+
+
+  var minorData = [
+    { label: "Luck",  data: 10},
+    { label: "Skill",  data: 20},
+    { label: "<br>Concentrated <br>Power of Will",  data: 15},
+    { label: "Pleasure",  data: 5},
+    { label: "Pain",  data: 50}
+
+  ];
+  $.plot('#minor', minorData, {
+    series: {
+      pie: {
+        show: true,
+        radius: 10/16,
+        innerRadius: 0.3
+      }
+    },
+    legend: {
+      show: false
+    }
+  });
+
+  var nameData = [
+    { label: "Reason to Remember the Name",  data: 100}
+  ];
+  $.plot('#theName', nameData, {
+    series: {
+      pie: {
+        show: true,
+        radius: 10/16,
+        innerRadius: 0.3
+      }
+    },
+    legend: {
+      show: false
+    }
+  });
+
+</script>
