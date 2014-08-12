@@ -3,6 +3,7 @@ var pact = require('../pact.js')
 exports.main = function(req, res){
   var polls = {};
   var list = [];
+  var displayList = [];
   pact.db.createReadStream({start: '!', 
                               end: '~'
                           })
@@ -33,12 +34,24 @@ exports.main = function(req, res){
       }
 
       list.sort(function(a, b) {
+        return parseInt(b.votes) - parseInt(a.votes)
+      });
+
+      if (list.length > 100) {
+        var listLength = 100;
+      } else {
+        var listLength = list.length;
+      }
+      for (var i = 0; i<listLength; i++) {
+        displayList[i] = list[i];
+      }
+      displayList.sort(function(a, b) {
         return parseInt(a.votes) - parseInt(b.votes)
       });
 
       res.render('top', { 
         title: 'Top',
-        polls: list,
+        polls: displayList,
         render: false
       });
     })
