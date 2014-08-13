@@ -102,7 +102,7 @@ This also was a new way of thinking for me about databases.
 ### My Thought Process about databases
 
 | Database   | What I see it as | relationships are preserved with  |
-|------------|------------------------------------------------------|
+|------------|------------------|-----------------------------------|
 | MySQL      | Table storage    | normalizing the tables            |
 | MongoDB    | Document store   | subdocs                           |
 | LevelDB    | Key Value Store  | namespacing the keys              |
