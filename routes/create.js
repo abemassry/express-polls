@@ -10,6 +10,7 @@ exports.main = function(req, res){
   refill.option3 = '';
   refill.option4 = '';
   refill.option5 = '';
+  refill.option6 = '';
 
   if (req.param('poll-question-submitted')) {
     var optionLength = 0;
@@ -20,7 +21,8 @@ exports.main = function(req, res){
     var option3 = req.param('option3');
     var option4 = req.param('option4');
     var option5 = req.param('option5');
-    var options = [option0, option1, option2, option3, option4, option5];
+    var option6 = req.param('option6');
+    var options = [option0, option1, option2, option3, option4, option5, option6];
     var answers = [];
     var i;
     for (i = 0; i <= options.length; i++) {
@@ -50,6 +52,7 @@ exports.main = function(req, res){
       refill.option3 = req.param('option3');
       refill.option4 = req.param('option4');
       refill.option5 = req.param('option5');
+      refill.option6 = req.param('option6');
       req.flash('warn', 'Need more than one option for a poll');
       res.render('create', { title: 'Create', 
                              render: false, 

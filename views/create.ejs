@@ -115,7 +115,7 @@ $(document).ready(function() {
       <input id="options6" 
              class="form-control hidden-input" 
              type="text" 
-             placeholder="Infinity" 
+             placeholder="Infinite" 
              value="<%= refill.option6 %>"
              autocomplete="off"
              maxlength="100"
@@ -132,3 +132,24 @@ $(document).ready(function() {
     <input name="uid" type="hidden" value="" id="form_uid" />
 
   </form>
+</div>
+    <script>
+      $(document).ready(function() {
+        $('#options1').focus(function() {
+          $('#options2').slideDown("fast");
+        });
+        $('#options2').focus(function() {
+          $('#options3').slideDown("fast");
+        });
+        $('#options3').focus(function() {
+          $('#options4').slideDown("fast");
+        });
+        $('#options4').focus(function() {
+          $('#options5').slideDown("fast");
+        });
+        $('#options5').focus(function() {
+          $('#options6').slideDown("fast");
+        });
+      });
+
+    </script>
