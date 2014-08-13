@@ -24,6 +24,10 @@ $ export PORT=80
 $ node app.js
 
 ```
+In production you want to use something like forever
 
+```bash
+$ forever app.js
+```
 
 
