@@ -11,6 +11,7 @@ server = http.createServer(app);
 var io = require('socket.io').listen(server);
 exports.io = io;
 // 
+// From SO:
 // All routes go in routes directory
 // route file ex. users.js
 // routes take the form of ex. routes.users.main
