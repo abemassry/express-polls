@@ -99,7 +99,7 @@ app should be ready to go and start saving data to the db directory.
 This was the first time I tried LevelDB so it took some time to get used to. 
 This also was a new way of thinking for me about databases.
 
-### My Thought Process about databases
+### Thought Process about databases
 
 | Database   | What I see it as | relationships are preserved with  |
 |------------|------------------|-----------------------------------|
@@ -113,8 +113,9 @@ takes a little while to figure out.
 
 ## Libraries Used
 
-flot.js
-LevelUp
+[flot.js](http://www.flotcharts.org/)
+[LevelUp](https://github.com/rvagg/node-levelup)
+[Socket.IO](http://socket.io/)
 
 ## Inspiration
 

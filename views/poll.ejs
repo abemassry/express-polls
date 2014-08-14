@@ -217,6 +217,15 @@
 <h3 id="voteCount"></h3>
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 
+<a href="http://twitter.com/share" data-url="http://expresspolls.com/poll/<%= pollId %>" data-text="<%= title %>" data-count="horizontal" data-via="expresspolls" class="twitter-share-button"></a>
+<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://expresspolls.com/poll/<%= pollId %>"></div>
+<button class="btn btn-small" style="margin-top: -10px; margin-left: 30px" data-toggle="modal" href="#embedModal">Embed</button>
+<div id="embedModal" class="modal hide fade" style='display: none;'>
+  <div class="modal-header">
+    <button class="close" data-dismiss='modal'> × </button>
+    <h3>Embed</h3>
+  </div>
+</div>
 
 <div id="spacer" style="width: 100%; height: 50px;"></div>
 <br />
