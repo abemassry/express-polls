@@ -114,7 +114,9 @@ takes a little while to figure out.
 ## Libraries Used
 
 [flot.js](http://www.flotcharts.org/)
+
 [LevelUp](https://github.com/rvagg/node-levelup)
+
 [Socket.IO](http://socket.io/)
 
 ## Inspiration
