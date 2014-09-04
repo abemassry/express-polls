@@ -21,7 +21,7 @@ var routes = new Array();
 require("fs").readdirSync("routes").forEach(function(file) {
   if (file.match(/.+\.js$/g) !== null) {
     var name = file.replace('.js', '');
-    routes[name] = require('./routes/' + file);
+    routes[name] = require('routes/' + file);
   }
 });
 
