@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express Polls - <%= title %></title>
+    <link rel='icon' href='/images/favicon.ico'></link>
+    <link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scaleable=no">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/flot/jquery.flot.min.js"></script>
+    <script src="/javascripts/flot/jquery.flot.crosshair.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/javascripts/flot/jquery.flot.pie.js"></script>
+    
+<h2><a href="/poll/<%= pollId %>"><%= title %></a></h2>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    socket = io.connect('http://popcopy.ignorelist.com:3000');
+    function supports_html5_storage() {
+      try {
+        localStorage["works"] = "yes";
+        return 'localStorage' in window && window['localStorage'] !== null;
+      } catch (e) {
+        return false;
+      }
+    }
+    $(document).ready(function() {
+      // check to see if user is logged in
+      if (supports_html5_storage() !== false) {
+        localStorage["storage_enabled"] = "yes";
+        if(localStorage["logged_in"] !== "yes") {
+          loginUser();
+        } else {
+          checkVoted();
+          //checkSumbitted();
+          //$("input[name='uid']").val(localStorage["uid"]);
+        }
+      }
+      function loginUser() {
+        $.ajax({
+          type: "POST",
+          data: "getUid=1",
+          url: "/newuid",
+          success: function(msg) {
+            if(msg) {
+              localStorage["uid"] = msg;
+              localStorage["logged_in"] = "yes";
+              //$("input[name='uid']").val(localStorage["uid"]);
+            }
+          }
+        });
+      }
+      function checkVoted() {
+        var uid = localStorage["uid"];
+        var pollId = "<%= pollId %>";
+        $.ajax({
+          type: "POST",
+          data: "poll="+pollId+"&uid="+uid,
+          url: "/checkvoted",
+          success: function(msg) {
+            // if true render poll
+            // dont show questions
+            if (msg == "true") {
+              displayPlot();
+            } else {
+              $("#allAnswers").show();
+            }
+          }
+        });
+      }
+      function checkSumbitted() {
+        var uid = localStorage["uid"];
+        var pollId = "<%= pollId %>";
+        $.ajax({
+          type: "POST",
+          data: "poll="+pollId+"&uid="+uid,
+          url: "/checksubmitted",
+          success: function(msg) {
+            // if true render poll
+            // dont show questions
+            if (msg === "true") {
+              displayPlot();
+            }
+          }
+        });
+      }
+
+
+      // check to see if user voted
+
+      // if they did hide questions and display plot
+
+      function displayPlot() {
+        $("#button_answers").hide();
+
+        var data = <%- JSON.stringify(voteData) %>;
+        $.plot('#placeholder', data, {
+          series: {
+            pie: {
+              show: true,
+              radius: 11/16,
+              innerRadius: 0.3
+            }
+          },
+          legend: {
+            show: false
+          }
+        });
+        var total = <%- JSON.parse(jsonData).total %>;
+        $("#voteCount").html(total+" Votes").fadeIn();
+        updateWithSockets();
+        //.fadeIn();
+      }
+      function updateWithSockets() { 
+        socket.on("<%= pollId %>", function(payload) {
+          console.log(payload);
+          var plObj = JSON.parse(payload);
+          var data = plObj.voteData;
+          var total = plObj.total;
+          $.plot('#placeholder', data, {
+            series: {
+              pie: {
+                show: true,
+                radius: 11/16,
+                innerRadius: 0.3
+              }
+            },
+            legend: {
+              show: false
+            }
+          }); // end of plot
+          console.log(' ');
+          console.log('votes ');
+          console.log(total);
+          console.log(' ');
+          $("#voteCount").html(total+" Votes").fadeIn();
+
+        }); // end of socket
+      }
+
+    });
+
+    // update plot with websockets
+  </script>
+  <div id="button_answers">
+  <% for (var i=0; i<data.answers.length; i++) { %>
+    <div class="form-group">
+      <button type="button" class="btn btn-default btn-lg" value="<%= data.answers[i] %>" id="id_u_ans_<%= i %>"><%= data.answers[i] %></button>
+      <script>
+        $(function(){
+          var answer = "<%= data.answers[i] %>";
+          var id = "#id_u_ans_"+<%= i %>;
+          var poll_id = "<%= pollId %>";
+          var uid = localStorage["uid"];
+          $(id).click(function() {
+            // submit answer to question with ajax
+            $.ajax({
+              type: "POST",
+              data: "poll_id="+poll_id+"&answer="+answer+"&uid="+uid,
+              url: "/vote",
+              success: function(msg) {
+                console.log('msg');
+                console.log(msg); 
+                // hide questions
+                $("#button_answers").fadeOut("fast");
+                
+                // render plot
+                var msgObj = JSON.parse(msg);
+                var data = msgObj.voteData;
+                var total = msgObj.total;
+                $.plot('#placeholder', data, {
+                  series: {
+                    pie: {
+                      show: true,
+                      radius: 11/16,
+                      innerRadius: 0.3
+                    }
+                  },
+                  legend: {
+                    show: false
+                  }
+                });
+                // taken out temporarily to avoid error
+                // need to find a fade in for plot
+                //.fadeIn();
+                $("#voteCount").html(total+" Votes").fadeIn();
+                localStorage["has_voted"] = "yes";
+
+
+                // update plot with websockets
+                // update votes with websockets
+                socket.on("<%= pollId %>", function(payload) {
+                  console.log(payload);
+                  var plObj = JSON.parse(payload);
+                  var data = plObj.voteData;
+                  var total = plObj.total;
+                  $.plot('#placeholder', data, {
+                    series: {
+                      pie: {
+                        show: true,
+                        radius: 11/16,
+                        innerRadius: 0.3
+                      }
+                    },
+                    legend: {
+                      show: false
+                    }
+                  }); // end of plot
+                  console.log(' ');
+                  console.log('votes ');
+                  console.log(total);
+                  console.log(' ');
+                  $("#voteCount").html(total+" Votes").fadeIn();
+
+                }); // end of socket
+              }
+            }); // end of ajax
+          }); // end of click
+        }); // end of jQuery document.ready equiv
+      </script>
+    </div>
+  <% } %>
+  </div>
+
+
+<div id="placeholder" style="width: 100%; height: 363px;"></div>
+
+<h3 id="voteCount"></h3>
+<div id="spacer" style="width: 100%; height: 50px;"></div>
+
+<a href="http://twitter.com/share" data-url="http://expresspolls.com/poll/<%= pollId %>" data-text="<%= title %>" data-count="horizontal" data-via="expresspolls" class="twitter-share-button"></a>
+
+<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://expresspolls.com/poll/<%= pollId %>"></div>
+
+<button class="btn btn-small" style="margin-top: -10px; margin-left: 30px" data-toggle="modal" data-target="#embedModal">Embed</button>
+
+<div id="embedModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="embedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 523px;">
+    <div class="modal-content">
+
+  
+      <div class="modal-header">
+        <button class="close" data-dismiss='modal'> × </button>
+        <h3>Embed</h3>
+      </div>
+      
+      <div class="modal-body">
+          You can change the width to suit the size area that you will be embedding to
+          <br />
+          <br />
+          <textarea rows="4" style="width: 470px"><iframe width="940px" src="http://expresspolls.com/embed/<%= pollId %>" height="610px" frameborder=0 scrolling="no"></iframe></textarea>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="spacer" style="width: 100%; height: 50px;"></div>
+<br />
+
+    <br />
+    <br />
+    <br />
+    <footer style="margin-top: 100px">&copy; Mass Industries 2014</footer>
+    
+    </div>
+
+    
+  <script src="http://platform.twitter.com/widgets.js"></script>
+  <script>
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  </script>
+  </body>
+</html>
