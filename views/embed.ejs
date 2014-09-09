@@ -230,57 +230,10 @@
 <div id="placeholder" style="width: 100%; height: 363px;"></div>
 
 <h3 id="voteCount"></h3>
-<div id="spacer" style="width: 100%; height: 50px;"></div>
-
-<a href="http://twitter.com/share" data-url="http://expresspolls.com/poll/<%= pollId %>" data-text="<%= title %>" data-count="horizontal" data-via="expresspolls" class="twitter-share-button"></a>
-
-<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://expresspolls.com/poll/<%= pollId %>"></div>
-
-<button class="btn btn-small" style="margin-top: -10px; margin-left: 30px" data-toggle="modal" data-target="#embedModal">Embed</button>
-
-<div id="embedModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="embedModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="width: 523px;">
-    <div class="modal-content">
-
-  
-      <div class="modal-header">
-        <button class="close" data-dismiss='modal'> × </button>
-        <h3>Embed</h3>
-      </div>
-      
-      <div class="modal-body">
-          You can change the width to suit the size area that you will be embedding to
-          <br />
-          <br />
-          <textarea rows="4" style="width: 470px"><iframe width="940px" src="http://expresspolls.com/embed/<%= pollId %>" height="610px" frameborder=0 scrolling="no"></iframe></textarea>
-      </div>
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="spacer" style="width: 100%; height: 50px;"></div>
-<br />
-
-    <br />
-    <br />
-    <br />
-    <footer style="margin-top: 100px">&copy; Mass Industries 2014</footer>
+    <footer style="margin-top: 100px">created with <a href="http://expresspolls.com/">Express Polls</a></footer>
     
     </div>
 
     
-  <script src="http://platform.twitter.com/widgets.js"></script>
-  <script>
-    (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-  </script>
   </body>
 </html>
