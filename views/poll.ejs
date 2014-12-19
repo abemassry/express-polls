@@ -1,7 +1,7 @@
 <h2><a href="/poll/<%= pollId %>"><%= title %></a></h2>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    socket = io.connect('http://popcopy.ignorelist.com:3000');
+    socket = io.connect('http://expresspolls.com');
     function supports_html5_storage() {
       try {
         localStorage["works"] = "yes";
