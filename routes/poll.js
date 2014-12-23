@@ -43,6 +43,9 @@ exports.main = function(req, res){
         }
         var jsonPayload = {total: total, voteData: voteData};
         var jsonPayloadString = JSON.stringify(jsonPayload);
+        if (question == '') {
+          question = 'Untitled';
+        }
         res.render('poll', { title: question,
                              pollId: req.params.id,
                              data: data,

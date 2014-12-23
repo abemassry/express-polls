@@ -1,6 +1,10 @@
 <h2>Top</h2>
 
-<% for (var i=0; i<polls.length; i++) { %>
+<% for (var i=0; i<polls.length; i++) { 
+    if( polls[i].title == ''){
+      polls[i].title = 'Untitled';
+    }
+%>
   <h3><a href="/poll/<%= polls[i].id %>"><%= polls[i].title %></a><small>&nbsp;&nbsp;&nbsp; Votes: <%= polls[i].votes %></small></h3> 
 <% } %>
 

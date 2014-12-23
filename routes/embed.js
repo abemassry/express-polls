@@ -41,6 +41,9 @@ exports.main = function(req, res){
                         };
           total = total + statsCount[pollAnswers[i]];
         }
+        if (question == '') {
+          question = 'Untitled';
+        }
         var jsonPayload = {total: total, voteData: voteData};
         var jsonPayloadString = JSON.stringify(jsonPayload);
         res.render('embed',{ layout: false,
