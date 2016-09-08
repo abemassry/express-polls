@@ -50,9 +50,10 @@ router.get('/:id', (req, res, next) => {
         }
         res.render('poll', { title: question,
                              pollId: req.params.id,
-                             data: data,
+                             data,
                              jsonData: jsonPayloadString,
                              voteData: voteData,
+                             location: pact.location,
                              render: true
                            }
         );

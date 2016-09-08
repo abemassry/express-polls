@@ -20,8 +20,6 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 exports.io = io;
 
-
-
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
