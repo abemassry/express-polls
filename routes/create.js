@@ -1,6 +1,8 @@
-var pact = require('../pact.js');
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-exports.main = function(req, res){
+router.post('/', (req, res, next) => {
   var uid = req.param('uid');
   var refill = {};
   refill.question = '';
@@ -73,4 +75,17 @@ exports.main = function(req, res){
                          }
     );
   }
-};
+});
+router.get('/', (req, res, next) => {
+    const refill = {};
+    res.render('create', { title: 'Create', 
+                           render: false, 
+                           voteData: null, 
+                           messages: req.flash('warn'),
+                           refill: refill
+                         }
+    );
+
+});
+
+module.exports = router;

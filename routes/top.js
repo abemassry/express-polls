@@ -1,6 +1,8 @@
-var pact = require('../pact.js')
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-exports.main = function(req, res){
+router.get('/', (req, res, next) => {
   var polls = {};
   var list = [];
   var displayList = [];
@@ -55,4 +57,6 @@ exports.main = function(req, res){
         render: false
       });
     })
-};
+});
+
+module.exports = router;

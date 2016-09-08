@@ -1,7 +1,8 @@
-var pact = require('../pact.js')
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-
-exports.main = function(req, res){
+router.post('/', (req, res, next) => {
   if (req.param('poll_id')) {
     var pollId = req.param('poll_id');
     var uid = req.param('uid');
@@ -71,4 +72,5 @@ exports.main = function(req, res){
       );
     });
   }
-};
+});
+module.exports = router;

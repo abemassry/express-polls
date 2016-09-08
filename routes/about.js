@@ -1,10 +1,14 @@
-var pact = require('../pact.js')
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-exports.main = function(req, res){
+router.get('/', (req, res, next) => {
 
   res.render('about', { title: 'About', 
                         render: true
                       }
   );
 
-};
+});
+
+module.exports = router;

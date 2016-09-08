@@ -1,6 +1,8 @@
-var pact = require('../pact.js')
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-exports.main = function(req, res){
+router.get('/', (req, res, next) => {
   var polls = new Array();
   pact.db.createReadStream({start: 'poll!', 
                               end: 'poll!~'
@@ -17,4 +19,6 @@ exports.main = function(req, res){
                          }
       );
     })
-};
+});
+
+module.exports = router;

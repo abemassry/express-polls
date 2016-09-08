@@ -1,6 +1,8 @@
-var pact = require('../pact.js')
+const express = require('express');
+const pact = require('../pact.js');
+const router = express.Router();
 
-exports.main = function(req, res){
+router.get('/:id', (req, res, next) => {
   pact.db.get('poll!'+req.params.id, function (err, value) {
     if (err) return console.log(req.params.id+' does not exist in poll.js');
     console.log(req.params.id+' found');
@@ -56,4 +58,6 @@ exports.main = function(req, res){
         );
       })
     }); // db.get poll end
-};
+});
+
+module.exports = router;
