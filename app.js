@@ -81,7 +81,7 @@ if ('development' == app.get('env')) {
   app.use(errorHandler());
 }
 
-server.listen(app.get('port'), function(){
+server.listen(app.get('port'), () => {
   console.log("Express server listening on port " + app.get('port'));
 });
 
