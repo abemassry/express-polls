@@ -3,9 +3,9 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  if (req.param('poll_id')) {
-    var pollId = req.param('poll_id');
-    var uid = req.param('uid');
+  if (req.params.poll_id) {
+    var pollId = req.params.poll_id;
+    var uid = req.params.uid;
     pact.db.get('poll!'+pollId, function (err, value) {
       if (err) return console.log(req.params.id+' does not exist in vote.js');
       var voteId = pact.getId();

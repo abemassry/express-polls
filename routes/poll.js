@@ -3,26 +3,26 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.get('/:id', (req, res, next) => {
-  pact.db.get('poll!'+req.params.id, function (err, value) {
+  pact.db.get('poll!'+req.params.id, (err, value) => {
     if (err) return console.log(req.params.id+' does not exist in poll.js');
     console.log(req.params.id+' found');
-    var pollId = req.params.id;
+    const pollId = req.params.id;
     //voteData: voteData,
-    var data = JSON.parse(value);
-    var question = data.question;
-    var stats = new Array();
+    const data = JSON.parse(value);
+    let question = data.question;
+    const stats = [];
     pact.db.createReadStream({start: 'vote!'+pollId + '!', 
                                 end: 'vote!'+pollId + '!~'
                             })
-      .on('data', function(data){
-        var vote = JSON.parse(data.value).vote;
+      .on('data', (data) => {
+        let vote = JSON.parse(data.value).vote;
         stats.push(vote);
       })
-      .on('end', function() {
+      .on('end', () => {
         
-        var statsCount = {};
-        var stat;
-        for (var i=0; i<stats.length; i++) {
+        const statsCount = {};
+        let stat;
+        for (let i=0; i<stats.length; i++) {
           stat = statsCount[stats[i]];
           if (stat) {
             statsCount[stats[i]] = stat + 1;
@@ -30,11 +30,11 @@ router.get('/:id', (req, res, next) => {
             statsCount[stats[i]] = 1;
           }
         }
-        var pollAnswers = JSON.parse(value).answers;
+        const pollAnswers = JSON.parse(value).answers;
         
-        var voteData = [];
-        var total = 0;
-        for (var i=0; i<pollAnswers.length; i++) {
+        const voteData = [];
+        let total = 0;
+        for (let i=0; i<pollAnswers.length; i++) {
           if(!statsCount[pollAnswers[i]]) {
             statsCount[pollAnswers[i]] = 0;
           }
@@ -43,8 +43,8 @@ router.get('/:id', (req, res, next) => {
                         };
           total = total + statsCount[pollAnswers[i]];
         }
-        var jsonPayload = {total: total, voteData: voteData};
-        var jsonPayloadString = JSON.stringify(jsonPayload);
+        const jsonPayload = {total: total, voteData: voteData};
+        const jsonPayloadString = JSON.stringify(jsonPayload);
         if (question == '') {
           question = 'Untitled';
         }

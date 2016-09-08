@@ -3,7 +3,7 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  if(req.param('getUid')) {
+  if(req.params.getUid) {
     var uid = pact.getId();
     res.end(uid);
   }
