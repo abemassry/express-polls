@@ -33,14 +33,14 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     path: '/',
-    httpOnly: true
+    httpOnly: true,
+    maxAge: 60000
   }
 }));
 app.use(favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('keyboard cat'));
-app.use(session({ cookie: { maxAge: 60000 }}));
 //app.use(multer());
 app.use(flash());
 app.use(methodOverride());
