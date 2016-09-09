@@ -6,12 +6,12 @@ router.post('/', (req, res, next) => {
   if (req.body.poll) {
     const pollId = req.body.poll;
     const uid = req.body.uid;
-    
-    pact.db.get('poll!'+pollId, (err, value) => {
-      if (err) return console.log(pollId+' does not exist in checkvoted.js');
-      
-      pact.db.createReadStream({start: 'vote!'+ pollId + '!', 
-                                  end: 'vote!'+ pollId + '!~'})
+
+    pact.db.get(`poll!${pollId}`, (err, value) => {
+      if (err) return console.log(`${pollId} does not exist in checkvoted.js`);
+
+      pact.db.createReadStream({start: `vote!${pollId}!`,
+                                  end: `vote!${pollId}!~`})
         .on('data', (data) => {
           let user = JSON.parse(data.value).user;
           if (user === uid) {

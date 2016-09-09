@@ -41,8 +41,8 @@ router.post('/', (req, res, next) => {
 
       const value = { question, answers, user: uid};
       const key = pact.getId();
-      pact.db.put('poll!'+key, JSON.stringify(value), () => {
-        res.redirect('/poll/'+key);
+      pact.db.put(`poll!${key}`, JSON.stringify(value), () => {
+        res.redirect(`/poll/${key}`);
                              
       });
     } else {

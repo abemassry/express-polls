@@ -5,27 +5,27 @@ const router = express.Router();
 router.post('/', (req, res, next) => {
   if (req.body.poll_id) {
     const pollId = req.body.poll_id;
-    console.log('got pollId '+ pollId);
+    console.log(`got pollId ${pollId}`);
     const uid = req.body.uid;
-    pact.db.get('poll!'+pollId, (err, value) => {
-      if (err) return console.log(req.body.id+' does not exist in vote.js');
+    pact.db.get(`poll!${pollId}`, (err, value) => {
+      if (err) return console.log(`${req.body.id} does not exist in vote.js`);
       const voteId = pact.getId();
       const answer = req.body.answer;
       const putValue = { user: uid, vote: answer};
       const stats = [];
-      pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(putValue), 
+      pact.db.put(`vote!${pollId}!${voteId}`, JSON.stringify(putValue),
         (err) => {
           if (err) return console.log('db error', err);
           // get current poll stats
-          pact.db.createReadStream({start: 'vote!'+pollId + '!', 
-                                      end: 'vote!'+pollId + '!~'
+          pact.db.createReadStream({start: `vote!${pollId}!`,
+                                      end: `vote!${pollId}!~`
                                   })
             .on('data', (data) => {
               const vote = JSON.parse(data.value).vote;
               stats.push(vote);
             })
             .on('end', () => {
-              
+
               const statsCount = {};
               let stat;
               for (let i=0; i<stats.length; i++) {
@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
                 }
               }
               const pollAnswers = JSON.parse(value).answers;
-              
+
               const voteData = [];
               let total = 0;
               for (let i=0; i<pollAnswers.length; i++) {
@@ -64,11 +64,7 @@ router.post('/', (req, res, next) => {
               //];
               //res.end
               // update with websockets
-              
-
-
             })
-              
         }
       );
     });
