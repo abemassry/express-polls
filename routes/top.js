@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
   pact.db.createReadStream({start: '!', 
                               end: '~'
                           })
-    .on('data', function (data) {
+    .on('data', (data) => {
       var keySplit = data.key.split('!');
       var type = keySplit[0];
       var id = keySplit[1];
@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
       }
 
     })
-    .on('end', function() {
+    .on('end', () => {
       var i = 0;
 
       for (var key in polls) {
@@ -35,7 +35,7 @@ router.get('/', (req, res, next) => {
         });
       }
 
-      list.sort(function(a, b) {
+      list.sort((a, b) => {
         return parseInt(b.votes) - parseInt(a.votes)
       });
 
@@ -47,7 +47,7 @@ router.get('/', (req, res, next) => {
       for (var i = 0; i<listLength; i++) {
         displayList[i] = list[i];
       }
-      displayList.sort(function(a, b) {
+      displayList.sort((a, b) => {
         return parseInt(a.votes) - parseInt(b.votes)
       });
 

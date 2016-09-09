@@ -7,7 +7,7 @@ router.post('/', (req, res, next) => {
     var pollId = req.body.poll;
     var uid = req.body.uid;
     
-    pact.db.get('poll!'+ pollId, function (err, value) {
+    pact.db.get('poll!'+ pollId, (err, value) => {
       if (err) return console.log(pollId+' does not exist in checksubmitted.js');
       var user = JSON.parse(value).user;
       if (user === uid) {

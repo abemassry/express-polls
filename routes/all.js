@@ -3,18 +3,18 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  var polls = new Array();
+  const polls = [];
   pact.db.createReadStream({start: 'poll!', 
                               end: 'poll!~'
                           })
-    .on('data', function (data) {
-      var title = JSON.parse(data.value).question;
-      var id = data.key.split('!');
-      polls.push({id: id[1], title: title});
+    .on('data', (data) => {
+      const title = JSON.parse(data.value).question;
+      const id = data.key.split('!');
+      polls.push({id: id[1], title});
     })
-    .on('end', function() {
+    .on('end', () => {
       res.render('all', { title: 'All',
-                          polls: polls,
+                          polls,
                           render: false
                          }
       );

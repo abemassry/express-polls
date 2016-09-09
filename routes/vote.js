@@ -7,24 +7,24 @@ router.post('/', (req, res, next) => {
     var pollId = req.body.poll_id;
     console.log('got pollId '+ pollId);
     var uid = req.body.uid;
-    pact.db.get('poll!'+pollId, function (err, value) {
+    pact.db.get('poll!'+pollId, (err, value) => {
       if (err) return console.log(req.body.id+' does not exist in vote.js');
       var voteId = pact.getId();
       var answer = req.body.answer;
       var putValue = { user: uid, vote: answer};
       var stats = new Array();
       pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(putValue), 
-        function(err) {
+        (err) => {
           if (err) return console.log('db error', err);
           // get current poll stats
           pact.db.createReadStream({start: 'vote!'+pollId + '!', 
                                       end: 'vote!'+pollId + '!~'
                                   })
-            .on('data', function(data){
+            .on('data', (data) => {
               var vote = JSON.parse(data.value).vote;
               stats.push(vote);
             })
-            .on('end', function() {
+            .on('end', () => {
               
               var statsCount = {};
               var stat;

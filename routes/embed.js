@@ -3,7 +3,7 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.get('/:id', (req, res, next) => {
-  pact.db.get('poll!'+req.params.id, function (err, value) {
+  pact.db.get('poll!'+req.params.id, (err, value) => {
     if (err) return console.log(req.params.id+' does not exist in poll.js');
     console.log(req.params.id+' found');
     var pollId = req.params.id;
@@ -14,11 +14,11 @@ router.get('/:id', (req, res, next) => {
     pact.db.createReadStream({start: 'vote!'+pollId + '!', 
                                 end: 'vote!'+pollId + '!~'
                             })
-      .on('data', function(data){
+      .on('data', (data) => {
         var vote = JSON.parse(data.value).vote;
         stats.push(vote);
       })
-      .on('end', function() {
+      .on('end', () => {
         
         var statsCount = {};
         var stat;
