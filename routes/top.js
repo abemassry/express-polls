@@ -3,17 +3,17 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  var polls = {};
-  var list = [];
-  var displayList = [];
+  const polls = {};
+  const list = [];
+  const displayList = [];
   pact.db.createReadStream({start: '!', 
                               end: '~'
                           })
     .on('data', (data) => {
-      var keySplit = data.key.split('!');
-      var type = keySplit[0];
-      var id = keySplit[1];
-      
+      const keySplit = data.key.split('!');
+      const type = keySplit[0];
+      const id = keySplit[1];
+
       if (type === 'poll') {
         polls[id] = { 
           question: JSON.parse(data.value).question,
@@ -25,9 +25,9 @@ router.get('/', (req, res, next) => {
 
     })
     .on('end', () => {
-      var i = 0;
+      let i = 0;
 
-      for (var key in polls) {
+      for (let key in polls) {
         list.push({ 
           id: key,
           title: polls[key].question,
@@ -39,12 +39,11 @@ router.get('/', (req, res, next) => {
         return parseInt(b.votes) - parseInt(a.votes)
       });
 
-      if (list.length > 100) {
-        var listLength = 100;
-      } else {
-        var listLength = list.length;
+      let listLength = 100;
+      if (list.length < 100) {
+        listLength = list.length;
       }
-      for (var i = 0; i<listLength; i++) {
+      for (let i = 0; i<listLength; i++) {
         displayList[i] = list[i];
       }
       displayList.sort((a, b) => {

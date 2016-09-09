@@ -3,8 +3,8 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  var uid = req.body.uid;
-  var refill = {};
+  const uid = req.body.uid;
+  const refill = {};
   refill.question = '';
   refill.option0 = '';
   refill.option1 = '';
@@ -15,19 +15,18 @@ router.post('/', (req, res, next) => {
   refill.option6 = '';
 
   if (req.body.pollQuestionSubmitted) {
-    var optionLength = 0;
-    var question = req.body.question;
-    var option0 = req.body.option0;
-    var option1 = req.body.option1;
-    var option2 = req.body.option2;
-    var option3 = req.body.option3;
-    var option4 = req.body.option4;
-    var option5 = req.body.option5;
-    var option6 = req.body.option6;
-    var options = [option0, option1, option2, option3, option4, option5, option6];
-    var answers = [];
-    var i;
-    for (i = 0; i <= options.length; i++) {
+    let optionLength = 0;
+    const question = req.body.question;
+    const option0 = req.body.option0;
+    const option1 = req.body.option1;
+    const option2 = req.body.option2;
+    const option3 = req.body.option3;
+    const option4 = req.body.option4;
+    const option5 = req.body.option5;
+    const option6 = req.body.option6;
+    const options = [option0, option1, option2, option3, option4, option5, option6];
+    const answers = [];
+    for (let i = 0; i <= options.length; i++) {
       if (options[i] != '' && typeof options[i] !== "undefined") {
         answers[optionLength] = options[i];
         optionLength++;
@@ -40,8 +39,8 @@ router.post('/', (req, res, next) => {
 
     if (optionLength > 1) {
 
-      var value = { question: question, answers: answers, user: uid};
-      var key = pact.getId();
+      const value = { question, answers, user: uid};
+      const key = pact.getId();
       pact.db.put('poll!'+key, JSON.stringify(value), () => {
         res.redirect('/poll/'+key);
                              
@@ -60,7 +59,7 @@ router.post('/', (req, res, next) => {
                              render: false, 
                              voteData: null, 
                              messages: req.flash('warn'),
-                             refill: refill
+                             refill
                            }
       );
     }
@@ -71,7 +70,7 @@ router.post('/', (req, res, next) => {
                            render: false, 
                            voteData: null, 
                            messages: req.flash('warn'),
-                           refill: refill
+                           refill
                          }
     );
   }
@@ -82,7 +81,7 @@ router.get('/', (req, res, next) => {
                            render: false, 
                            voteData: null, 
                            messages: req.flash('warn'),
-                           refill: refill
+                           refill
                          }
     );
 

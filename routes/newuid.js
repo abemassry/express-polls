@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post('/', (req, res, next) => {
   if(req.body.getUid) {
-    var uid = pact.getId();
+    const uid = pact.getId();
     res.end(uid);
   }
 });

@@ -9,7 +9,7 @@ if (1 === process.env.PROD) {
   location = 'http://expresspolls.com';
 }
 
-var getId = () => {
+const getId = () => {
   let randInt = getRandomInt(1, 999999999999999);
   let diffRandInt = getRandomInt(1, 999999999999999);
   const randStringLength = getRandomInt(1, 40);
