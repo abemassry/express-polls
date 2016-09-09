@@ -45,7 +45,7 @@ router.get('/:id', (req, res, next) => {
         }
         const jsonPayload = {total: total, voteData: voteData};
         const jsonPayloadString = JSON.stringify(jsonPayload);
-        if (question == '') {
+        if (question === '') {
           question = 'Untitled';
         }
         res.render('poll', { title: question,

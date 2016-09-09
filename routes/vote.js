@@ -3,13 +3,14 @@ const pact = require('../pact.js');
 const router = express.Router();
 
 router.post('/', (req, res, next) => {
-  if (req.params.poll_id) {
-    var pollId = req.params.poll_id;
-    var uid = req.params.uid;
+  if (req.body.poll_id) {
+    var pollId = req.body.poll_id;
+    console.log('got pollId '+ pollId);
+    var uid = req.body.uid;
     pact.db.get('poll!'+pollId, function (err, value) {
-      if (err) return console.log(req.params.id+' does not exist in vote.js');
+      if (err) return console.log(req.body.id+' does not exist in vote.js');
       var voteId = pact.getId();
-      var answer = req.param('answer');
+      var answer = req.body.answer;
       var putValue = { user: uid, vote: answer};
       var stats = new Array();
       pact.db.put('vote!' + pollId + '!' + voteId, JSON.stringify(putValue), 
