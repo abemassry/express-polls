@@ -18,7 +18,6 @@
     "express-session": "^1.14.1",
     "level": "^1.4.0",
     "level-sublevel": "^5.2.0",
-    "leveldown": "^1.4.6",
     "levelup": "^1.3.2",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
