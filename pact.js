@@ -1,4 +1,4 @@
-const levelup = require('levelup');
+const levelup = require('level');
 const db = levelup('./db');
 const crypto = require('crypto');
 const appio = require('./app.js').io;
