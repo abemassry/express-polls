@@ -4,12 +4,12 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const polls = [];
-  pact.db.createReadStream({start: 'poll!', 
+  pact.db.createReadStream({start: 'poll!',
                               end: 'poll!~'
                           })
     .on('data', (data) => {
       const title = JSON.parse(data.value).question;
-      if (title.match(/href=/) || title.match(/http:/)) {
+      if (title.match(/href=/) || title.match(/http:/) || title.match(/https:/)) {
         pact.db.del(data.key, (err) => {
           if (err) {
             console.log(err);
