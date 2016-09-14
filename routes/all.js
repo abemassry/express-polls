@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
     .on('data', (data) => {
       const title = JSON.parse(data.value).question;
       if (title.match(/href=/) || title.match(/http:/)) {
-        db.del(data.key, (err) => {
+        pact.db.del(data.key, (err) => {
           if (err) {
             console.log(err);
           }
