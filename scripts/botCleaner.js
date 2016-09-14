@@ -3,7 +3,8 @@ const pact = require('../pact.js');
 pact.db.createReadStream({start: 'poll!',
                             end: 'poll!~'
                         })
-  .on('data', (data) => {
+    .on('data', (data) => {
+    console.log(data.value);
     const title = JSON.parse(data.value).question;
     console.log(title);
     if (title.match('href') || title.match('http')) {
