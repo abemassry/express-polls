@@ -1,8 +1,8 @@
 const levelup = require('level');
 const db = levelup('../db');
 
-db.createReadStream({start: 'poll!',
-                       end: 'poll!~'
+db.createReadStream({start: '',
+                       end: '~'
                    })
     .on('data', (data) => {
     console.log(data.key);
