@@ -5,6 +5,7 @@ pact.db.createReadStream({start: 'poll!',
                         })
   .on('data', (data) => {
     const title = JSON.parse(data.value).question;
+    console.log(title);
     if (title.match('href') || title.match('http')) {
       pact.db.del(data.key, (err) => {
         if (err) {
