@@ -9,9 +9,17 @@ router.get('/', (req, res, next) => {
                           })
     .on('data', (data) => {
       const title = JSON.parse(data.value).question;
-      console.log(title);
-      const id = data.key.split('!');
-      polls.push({id: id[1], title});
+      if (title.match(/href=/) || title.match(/http:/)) {
+        db.del(data.key, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      } else {
+        console.log(title);
+        const id = data.key.split('!');
+        polls.push({id: id[1], title});
+      }
     })
     .on('end', () => {
       res.render('all', { title: 'All',
