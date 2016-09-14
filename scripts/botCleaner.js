@@ -9,7 +9,7 @@ db.createReadStream({start: '',
     console.log(data.value);
     const title = JSON.parse(data.value).question;
     console.log(title);
-    if (title.match('href') || title.match('http')) {
+    if (title.match(/href=/) || title.match(/http:/)) {
       db.del(data.key, (err) => {
         if (err) {
           console.log(err);
