@@ -1,14 +1,15 @@
-const pact = require('../pact.js');
+const levelup = require('level');
+const db = levelup('../db');
 
-pact.db.createReadStream({start: 'poll!',
-                            end: 'poll!~'
-                        })
+db.createReadStream({start: 'poll!',
+                       end: 'poll!~'
+                   })
     .on('data', (data) => {
     console.log(data.value);
     const title = JSON.parse(data.value).question;
     console.log(title);
     if (title.match('href') || title.match('http')) {
-      pact.db.del(data.key, (err) => {
+      db.del(data.key, (err) => {
         if (err) {
           console.log(err);
         }
