@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
                           })
     .on('data', (data) => {
       const title = JSON.parse(data.value).question;
+      console.log(title);
       const id = data.key.split('!');
       polls.push({id: id[1], title});
     })
