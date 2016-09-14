@@ -5,6 +5,7 @@ db.createReadStream({start: 'poll!',
                        end: 'poll!~'
                    })
     .on('data', (data) => {
+    console.log(data.key);
     console.log(data.value);
     const title = JSON.parse(data.value).question;
     console.log(title);
