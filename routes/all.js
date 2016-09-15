@@ -16,7 +16,6 @@ router.get('/', (req, res, next) => {
           }
         });
       } else {
-        console.log(title);
         const id = data.key.split('!');
         polls.push({id: id[1], title});
       }
