@@ -35,14 +35,6 @@ router.get('/', (req, res, next) => {
           title: polls[key].question,
           votes: polls[key].count
         });
-        if (polls[key].count < 1) {
-          pact.db.del(`poll!${key}`, (err) => {
-            if (err) {
-              console.log(err);
-            }
-          });
-        }
-
       }
 
       list.sort((a, b) => {
