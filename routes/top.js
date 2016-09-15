@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
           votes: polls[key].count
         });
         if (polls[key].count < 1) {
-          pact.db.del(key, (err) => {
+          pact.db.del(`vote!${key}`, (err) => {
             if (err) {
               console.log(err);
             }
