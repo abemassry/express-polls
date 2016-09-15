@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
   const polls = {};
   const list = [];
   const displayList = [];
-  pact.db.createReadStream({start: '!', 
+  pact.db.createReadStream({start: '!',
                               end: '~'
                           })
     .on('data', (data) => {
@@ -15,12 +15,14 @@ router.get('/', (req, res, next) => {
       const id = keySplit[1];
 
       if (type === 'poll') {
-        polls[id] = { 
+        polls[id] = {
           question: JSON.parse(data.value).question,
           count: 0
         };
       } else if (type === 'vote') {
-        polls[id].count = polls[id].count + 1;
+        if (typeof polls[id] !== 'undefined') {
+          polls[id].count = polls[id].count + 1;
+        }
       }
 
     })
@@ -28,7 +30,7 @@ router.get('/', (req, res, next) => {
       let i = 0;
 
       for (let key in polls) {
-        list.push({ 
+        list.push({
           id: key,
           title: polls[key].question,
           votes: polls[key].count
@@ -50,7 +52,7 @@ router.get('/', (req, res, next) => {
         return parseInt(a.votes) - parseInt(b.votes)
       });
 
-      res.render('top', { 
+      res.render('top', {
         title: 'Top',
         polls: displayList,
         render: false
