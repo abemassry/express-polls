@@ -43,6 +43,7 @@ app.use(cookieParser('keyboard cat'));
 app.use(flash());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '.well-known')));
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.send(500, 'Something broke!');
